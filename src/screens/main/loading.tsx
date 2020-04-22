@@ -1,10 +1,11 @@
 import * as React from 'react';
-import { View, Text } from 'react-native';
+import { Text, SafeAreaView, TouchableOpacity } from 'react-native';
 
 export const Loading = () => {
   return (
-    <View>
-      <Text>Hello world</Text>
-    </View>
+    <SafeAreaView>
+      <Text>Loading screen</Text>
+      <TouchableOpacity onPress={() => console.log('Log')}><Text>Loading</Text></TouchableOpacity>
+    </SafeAreaView>
   );
 };

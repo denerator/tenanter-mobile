@@ -1,5 +1,5 @@
 import { AppRegistry } from 'react-native';
-import { Loading } from 'src/screens/main';
 import { name as appName } from './app.json';
+import { HomeNavigation } from './src/screens/home';
 
-AppRegistry.registerComponent(appName, () => Loading);
+AppRegistry.registerComponent(appName, () => HomeNavigation);
