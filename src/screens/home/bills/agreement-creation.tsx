@@ -8,9 +8,9 @@ import {
   Keyboard,
   Switch,
 } from 'react-native';
-import { Input } from '../../components/input';
-import { Button } from '../../components/button';
-import { flatService } from '../flat/flat.service';
+import { Input, Button } from '../../../components';
+import { flatService } from '../../../services/flat.service';
+import { globalStyles } from '../../../constants';
 
 const initialState = {
   name: '',
@@ -58,7 +58,7 @@ export const BillCreation = ({ navigation, route }) => {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={styles.container}>
-        <Text style={styles.title}>Provide the data</Text>
+        <Text style={globalStyles.h2}>Provide the data</Text>
         <View style={styles.form}>
           <Input
             value={state.name}
@@ -108,12 +108,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-  title: {
-    paddingLeft: '10%',
-    fontSize: 20,
-    fontWeight: '600',
-    marginBottom: 40,
-  },
+
   submit: {
     marginTop: 30,
     width: '80%',

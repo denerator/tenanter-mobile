@@ -1,11 +1,12 @@
 import * as React from 'react';
 import { View, Text, StyleSheet, FlatList } from 'react-native';
+import { globalStyles } from '../../../constants';
 
 export const SingleBillHistory = ({ navigation, route }) => {
   const { billHistory } = route.params;
 
   const renderBillItem = ({ item, index }) => (
-    <View style={styles.row}>
+    <View style={globalStyles.tableRow}>
       <Text style={{ flex: 1.5 }}>
         {new Date(item.date).toLocaleDateString()}
       </Text>

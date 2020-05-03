@@ -6,18 +6,18 @@ import {
   Alert,
   RefreshControl,
 } from 'react-native';
-import { homeService } from './home.service';
+import { IFlat } from 'src/typings';
+import { flatService } from '../../../services/flat.service';
 import { FlatItem } from './components/list-item';
-import { IFlat } from '../../typings';
 
-export const Home = ({ navigation }) => {
+export const FlatsList = ({ navigation }) => {
   const [refreshing, setRefreshing] = React.useState(false);
   const [flats, setFlats] = React.useState<IFlat[]>([]);
 
   const getFlats = async () => {
     try {
       setRefreshing(true);
-      const { data } = await homeService.getFlats(1);
+      const { data } = await flatService.getFlats(1); // Hard-coded user id
       setFlats(data);
       setRefreshing(false);
     } catch (error) {

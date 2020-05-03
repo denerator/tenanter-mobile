@@ -8,9 +8,9 @@ import {
   Keyboard,
 } from 'react-native';
 import { Dropdown } from 'react-native-material-dropdown';
-import { Input } from '../../components/input';
-import { Button } from '../../components/button';
-import { flatService } from '../flat/flat.service';
+import { Input, Button } from '../../../components';
+import { flatService } from '../../../services/flat.service';
+import { globalStyles } from '../../../constants';
 
 export const BillHistoryCreation = ({ navigation, route }) => {
   const { flat, billsAgreement } = route.params;
@@ -42,7 +42,7 @@ export const BillHistoryCreation = ({ navigation, route }) => {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={styles.container}>
-        <Text style={styles.title}>Provide the data</Text>
+        <Text style={globalStyles.h2}>Provide the data</Text>
         <View style={styles.dropdown}>
           <Dropdown
             label="Bill"
@@ -84,12 +84,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-  title: {
-    paddingLeft: '10%',
-    fontSize: 20,
-    fontWeight: '600',
-    marginBottom: 40,
-  },
+  
   submit: {
     marginTop: 30,
     width: '80%',

@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { TouchableOpacity, View, StyleSheet, Text } from 'react-native';
-import { COLORS, ROUTES } from '../../../constants';
 import { IFlat } from 'src/typings';
 import { useNavigation } from '@react-navigation/core';
+import { ROUTES, COLORS } from '../../../../constants';
 
 export const FlatItem = ({ flat }: { flat: IFlat }) => {
   const navigation = useNavigation();

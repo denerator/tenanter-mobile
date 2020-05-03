@@ -9,7 +9,7 @@ import {
 import { ITenant } from 'src/typings';
 import { FlatSection } from './section';
 import { useNavigation } from '@react-navigation/core';
-import { ROUTES } from '../../../constants';
+import { ROUTES } from '../../../../constants';
 import { number } from 'prop-types';
 
 export const TenantInfo = ({

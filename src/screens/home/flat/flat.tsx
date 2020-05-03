@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { View, Text, StyleSheet, Alert, ScrollView } from 'react-native';
-import { COLORS } from '../../constants';
-import { flatService } from './flat.service';
-import { IFlatDetails } from '../../typings';
+import { COLORS } from '../../../constants';
+import { flatService } from '../../../services/flat.service';
+import { IFlatDetails } from '../../../typings';
 import {
   TenantInfo,
   FlatSection,

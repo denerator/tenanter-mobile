@@ -1,5 +1,5 @@
 export enum ROUTES {
-  Home = 'Home',
+  FlatsList = 'Flats list',
   EditFlat = 'Edit flat',
   FlatDetails = 'Flat details',
   AddBillHistory = 'Add bill value',

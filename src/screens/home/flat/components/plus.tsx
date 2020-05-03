@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { COLORS } from '../../../constants';
+import { COLORS } from '../../../../constants';
 
 export const Plus = ({ onPress }) => {
   return (

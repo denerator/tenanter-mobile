@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { IBillHistory, IBillsAgreement } from '../../../typings';
+import { View, Text, TouchableOpacity } from 'react-native';
+import { IBillHistory, IBillsAgreement } from '../../../../typings';
 import { FlatSection } from './section';
 import { useNavigation } from '@react-navigation/core';
-import { ROUTES } from '../../../constants';
+import { ROUTES, globalStyles } from '../../../../constants';
 
 export const BillsHiStory = (props: {
   bills: IBillHistory[];
@@ -24,7 +24,9 @@ export const BillsHiStory = (props: {
 
   const getSingleHistory = (billName: string) => {
     navigation.navigate(ROUTES.SingleBillHistory, {
-      billHistory: props.bills.filter((bill) => bill.bill === billName).reverse(),
+      billHistory: props.bills
+        .filter((bill) => bill.bill === billName)
+        .reverse(),
     });
   };
 
@@ -32,7 +34,7 @@ export const BillsHiStory = (props: {
     <FlatSection name="Bills" onAddPress={addBillHistory}>
       {props.bills.length ? (
         <>
-          <View style={styles.row}>
+          <View style={globalStyles.tableRow}>
             <Text style={{ flex: 1.5 }}>Date</Text>
             <Text style={{ flex: 1 }}>Bill</Text>
             <Text style={{ flex: 1 }}>Value</Text>
@@ -43,7 +45,7 @@ export const BillsHiStory = (props: {
           {props.bills.map((bill) => (
             <TouchableOpacity
               onPress={() => getSingleHistory(bill.bill)}
-              style={styles.row}
+              style={globalStyles.tableRow}
               key={bill.id}
             >
               <Text style={{ flex: 1.5 }}>
@@ -58,25 +60,10 @@ export const BillsHiStory = (props: {
           ))}
         </>
       ) : (
-        <View style={styles.emptyContainer}>
+        <View style={globalStyles.centerBox}>
           <Text>No bills yet</Text>
         </View>
       )}
     </FlatSection>
   );
 };
-
-const styles = StyleSheet.create({
-  row: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: 10,
-    borderBottomColor: '#000',
-    borderBottomWidth: 0.5,
-    paddingVertical: 10,
-  },
-  emptyContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});

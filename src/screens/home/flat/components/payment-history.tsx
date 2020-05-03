@@ -1,7 +1,8 @@
 import * as React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { IPayment } from '../../../typings';
+import { View, Text } from 'react-native';
+import { IPayment } from '../../../../typings';
 import { FlatSection } from './section';
+import { globalStyles } from '../../../../constants';
 
 export const PaymentHiStory = ({
   paymentHistory,
@@ -14,14 +15,14 @@ export const PaymentHiStory = ({
     <FlatSection isAddVisible={true} onAddPress={onPay} name="Payments">
       {paymentHistory.length ? (
         <>
-          <View style={styles.row}>
+          <View style={globalStyles.tableRow}>
             <Text style={{ flex: 1 }}>Date</Text>
             <Text style={{ flex: 1.5 }}>Tenant</Text>
             <Text style={{ flex: 1 }}>Bills sum</Text>
             <Text style={{ flex: 0.6 }}>Total</Text>
           </View>
           {paymentHistory.map((payment) => (
-            <View style={styles.row} key={payment.id}>
+            <View style={globalStyles.tableRow} key={payment.id}>
               <Text style={{ flex: 1 }}>
                 {new Date(payment.date).toLocaleDateString()}
               </Text>
@@ -32,25 +33,10 @@ export const PaymentHiStory = ({
           ))}
         </>
       ) : (
-        <View style={styles.emptyContainer}>
+        <View style={globalStyles.centerBox}>
           <Text>No payments yet</Text>
         </View>
       )}
     </FlatSection>
   );
 };
-
-const styles = StyleSheet.create({
-  row: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: 10,
-    borderBottomColor: '#000',
-    borderBottomWidth: 0.5,
-    paddingVertical: 10,
-  },
-  emptyContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});

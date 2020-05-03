@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { COLORS } from '../../../constants';
+import { COLORS } from '../../../../constants';
 import { Plus } from './plus';
 
 interface IProps {

@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { ROUTES } from '../../../../constants';
 
 export const AddFlatBtn = ({ onPress }: { onPress: () => void }) => {
   return (

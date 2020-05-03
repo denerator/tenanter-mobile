@@ -6,13 +6,10 @@ import {
   Alert,
   TouchableWithoutFeedback,
   Keyboard,
-  Switch,
   ScrollView,
-  KeyboardAvoidingView,
 } from 'react-native';
-import { Input } from '../../components/input';
-import { Button } from '../../components/button';
-import { flatService } from '../flat/flat.service';
+import { Input, Button } from '../../../components';
+import { flatService } from '../../../services/flat.service';
 import { ITenant } from 'src/typings';
 
 const initialState = {

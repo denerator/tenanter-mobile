@@ -2,16 +2,16 @@ import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { ROUTES } from '../../constants';
-import { Home } from './home';
-import { AddFlatBtn } from './components/add-flat/add-flat-btn';
-import { AddFlatScreen } from './components/add-flat/add-flat';
 import { IFlat, ITenant } from 'src/typings';
-import { FlatDetailsScreen } from '../flat';
-import { BillHistoryCreation, BillCreation, SingleBillHistory } from '../bills';
-import { EditTenant } from '../tenant';
+import { FlatDetailsScreen } from './flat';
+import { BillHistoryCreation, BillCreation, SingleBillHistory } from './bills';
+import { EditTenant } from './tenant';
+import { AddFlatBtn } from './add-flat/add-flat-btn';
+import { AddFlatScreen } from './add-flat/add-flat';
+import { FlatsList } from './flats-list/flat-list';
 
 export type HomeStackParamsList = {
-  [ROUTES.Home]: undefined;
+  [ROUTES.FlatsList]: undefined;
   [ROUTES.EditFlat]: (flat: IFlat) => void;
   [ROUTES.FlatDetails]: {
     id: number;
@@ -38,10 +38,10 @@ const Stack = createStackNavigator<HomeStackParamsList>();
 export const HomeNavigation = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName={ROUTES.Home}>
+      <Stack.Navigator initialRouteName={ROUTES.FlatsList}>
         <Stack.Screen
-          name={ROUTES.Home}
-          component={Home}
+          name={ROUTES.FlatsList}
+          component={FlatsList}
           options={({ navigation }) => ({
             headerRight: () => (
               <AddFlatBtn
