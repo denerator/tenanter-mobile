@@ -32,7 +32,6 @@ export const BillHistoryCreation = ({ navigation, route }) => {
         bill,
         value: +value,
       });
-      console.log(data);
       navigation.goBack();
     } catch (error) {
       console.log(error.response.data);

@@ -23,7 +23,6 @@ export abstract class ApiService {
   };
 
   protected get = <T>(url: string) => {
-    console.log(url);
     return this.request<T>(url, 'GET');
   };
 

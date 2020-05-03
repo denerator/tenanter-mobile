@@ -19,7 +19,6 @@ export const FlatDetailsScreen = ({ navigation, route }) => {
     try {
       const { data } = await flatService.getFlatDetails(id);
       setFlat(data);
-      console.log(data);
     } catch (error) {
       console.log(error.response.data);
       Alert.alert('Error');
@@ -51,11 +50,6 @@ export const FlatDetailsScreen = ({ navigation, route }) => {
       return;
     }
     const date = new Date().toISOString().substring(0, 10);
-    console.log({
-      date,
-      flat: flat.id,
-      tenant: flat.tenant.id,
-    });
     try {
       const { data } = await flatService.savePayment({
         date,
@@ -66,7 +60,6 @@ export const FlatDetailsScreen = ({ navigation, route }) => {
         ...flat,
         payment_history: [...flat.payment_history, data],
       });
-      console.log(data);
     } catch (error) {
       console.log(error.response.data);
       Alert.alert(error.response.data[0]);
