@@ -7,7 +7,7 @@ interface IApiResponse<T> {
 
 export abstract class ApiService {
   private apiInstance = axios.create({
-    baseURL: 'http://127.0.0.1:8000',
+    baseURL: 'http://deener.pythonanywhere.com',
   });
 
   protected post = <T>(url: string, body: {}) => {
