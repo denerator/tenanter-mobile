@@ -1,5 +1,12 @@
 import * as React from 'react';
-import { View, Text, StyleSheet, Alert, ScrollView } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Alert,
+  ScrollView,
+  ActivityIndicator,
+} from 'react-native';
 import { COLORS } from '../../../constants';
 import { flatService } from '../../../services/flat.service';
 import { IFlatDetails } from '../../../typings';
@@ -10,19 +17,28 @@ import {
   BillsAgreement,
 } from './components';
 import { flatStore } from './flat.store';
+import { from } from 'rxjs';
 
 export const FlatDetailsScreen = ({ navigation, route }) => {
   const [flat, setFlat] = React.useState<IFlatDetails | null>(null);
+  const [isLoading, setLoading] = React.useState(false);
+
   const { id, address } = route.params;
 
-  const getFlat = async () => {
-    try {
-      const { data } = await flatService.getFlatDetails(id);
-      flatStore.next(data);
-    } catch (error) {
-      console.log(error.response.data);
-      Alert.alert('Error');
-    }
+  const getFlat = () => {
+    setLoading(true);
+    from(flatService.getFlatDetails(id)).subscribe(
+      ({ data }) => {
+        flatStore.next(data);
+      },
+      (error) => {
+        console.log(error.response.data);
+        Alert.alert('Error');
+      },
+      () => {
+        setLoading(false);
+      }
+    );
   };
 
   const askForPay = () => {
@@ -77,10 +93,11 @@ export const FlatDetailsScreen = ({ navigation, route }) => {
 
   return (
     <View style={styles.container}>
-      <ScrollView style={{ flex: 1 }}>
-        <>
-          <Text style={styles.title}>{address}</Text>
-          {flat ? (
+      {!isLoading && flat ? (
+        <ScrollView style={{ flex: 1 }}>
+          <>
+            <Text style={styles.title}>{address}</Text>
+
             <>
               <TenantInfo flat={flat.id} tenant={flat.tenant} />
               <BillsHiStory
@@ -94,11 +111,13 @@ export const FlatDetailsScreen = ({ navigation, route }) => {
               />
               <BillsAgreement flat={flat.id} bills={flat.bills_agreement} />
             </>
-          ) : (
-            <Text>Loading</Text>
-          )}
-        </>
-      </ScrollView>
+          </>
+        </ScrollView>
+      ) : (
+        <View style={[styles.emptyContainer, { flex: 1 }]}>
+          <ActivityIndicator size="large" color={COLORS.lightBlue} />
+        </View>
+      )}
     </View>
   );
 };

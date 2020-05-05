@@ -6,10 +6,11 @@ import {
   Alert,
   RefreshControl,
 } from 'react-native';
+import { from } from 'rxjs';
 import { IFlat } from 'src/typings';
 import { flatService } from '../../../services/flat.service';
 import { FlatItem } from './components/list-item';
-import { from, Subscription } from 'rxjs';
+import { COLORS } from '../../../constants';
 
 export const FlatsList = ({ navigation }) => {
   const [refreshing, setRefreshing] = React.useState(false);
@@ -42,7 +43,11 @@ export const FlatsList = ({ navigation }) => {
     <View style={styles.container}>
       <ScrollView
         refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={getFlats} />
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={getFlats}
+            tintColor={COLORS.lightBlue}
+          />
         }
       >
         {flats.map((flat) => (
