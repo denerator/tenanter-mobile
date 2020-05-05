@@ -5,11 +5,11 @@ import { flatService } from '../../../services/flat.service';
 import { IFlatDetails } from '../../../typings';
 import {
   TenantInfo,
-  FlatSection,
   BillsHiStory,
   PaymentHiStory,
   BillsAgreement,
 } from './components';
+import { flatStore } from './flat.store';
 
 export const FlatDetailsScreen = ({ navigation, route }) => {
   const [flat, setFlat] = React.useState<IFlatDetails | null>(null);
@@ -18,7 +18,7 @@ export const FlatDetailsScreen = ({ navigation, route }) => {
   const getFlat = async () => {
     try {
       const { data } = await flatService.getFlatDetails(id);
-      setFlat(data);
+      flatStore.next(data);
     } catch (error) {
       console.log(error.response.data);
       Alert.alert('Error');
@@ -56,10 +56,7 @@ export const FlatDetailsScreen = ({ navigation, route }) => {
         flat: flat.id,
         tenant: flat.tenant.id,
       });
-      setFlat({
-        ...flat,
-        payment_history: [...flat.payment_history, data],
-      });
+      flatStore.addPaymentRecord(data);
     } catch (error) {
       console.log(error.response.data);
       Alert.alert(error.response.data[0]);
@@ -67,12 +64,16 @@ export const FlatDetailsScreen = ({ navigation, route }) => {
   };
 
   React.useEffect(() => {
-    const unsubscribe = navigation.addListener('focus', () => {
-      getFlat();
+    const flatSubscription = flatStore.subscribe((data) => {
+      if (!data) {
+        return;
+      }
+      setFlat({ ...data });
     });
+    getFlat();
 
-    return unsubscribe;
-  }, [navigation]);
+    return () => flatSubscription.unsubscribe();
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -94,7 +95,7 @@ export const FlatDetailsScreen = ({ navigation, route }) => {
               <BillsAgreement flat={flat.id} bills={flat.bills_agreement} />
             </>
           ) : (
-            <Text> Loading</Text>
+            <Text>Loading</Text>
           )}
         </>
       </ScrollView>

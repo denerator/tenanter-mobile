@@ -60,6 +60,8 @@ export const Input = (props: IInputProps) => {
       case 'cvc':
       case 'rate':
       case 'contract_time':
+      case 'deposit':
+      case 'payment_day':
       case 'rental_rate':
         return 'numeric';
       default:

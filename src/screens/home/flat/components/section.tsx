@@ -5,7 +5,6 @@ import { Plus } from './plus';
 
 interface IProps {
   name: string;
-  isAddVisible: boolean;
   onAddPress: () => void;
   children: any;
 }
@@ -39,7 +38,6 @@ const styles = StyleSheet.create({
   },
   sectionContainer: {
     justifyContent: 'center',
-    marginBottom: 30,
   },
   content: {
     paddingVertical: 20,

@@ -11,6 +11,7 @@ import {
 import { Input, Button } from '../../../components';
 import { flatService } from '../../../services/flat.service';
 import { globalStyles } from '../../../constants';
+import { flatStore } from '../flat/flat.store';
 
 const initialState = {
   name: '',
@@ -41,6 +42,7 @@ export const BillCreation = ({ navigation, route }) => {
         is_dynamic,
         flat,
       });
+      flatStore.addBillAgreement(data);
       navigation.goBack();
     } catch (error) {
       console.log(error.response.data);

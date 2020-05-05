@@ -11,6 +11,7 @@ import {
 import { Input, Button } from '../../../components';
 import { flatService } from '../../../services/flat.service';
 import { ITenant } from 'src/typings';
+import { flatStore } from '../flat/flat.store';
 
 const initialState = {
   signing_date: new Date().toISOString().substring(0, 10),
@@ -40,6 +41,7 @@ export const EditTenant = ({ navigation, route }) => {
 
   const onSubmit = async () => {
     try {
+      let response: ITenant;
       if (tenant) {
         const { data } = await flatService.updateTenant({
           id: tenant.id,
@@ -49,6 +51,7 @@ export const EditTenant = ({ navigation, route }) => {
           rental_rate: +state.contract_time,
           deposit: +state.deposit,
         });
+        response = data;
       } else {
         const { data } = await flatService.saveTenant({
           ...state,
@@ -57,7 +60,9 @@ export const EditTenant = ({ navigation, route }) => {
           rental_rate: +state.contract_time,
           deposit: +state.deposit,
         });
+        response = data;
       }
+      flatStore.tenant = response;
       navigation.goBack();
     } catch (error) {
       console.log(error.response.data);

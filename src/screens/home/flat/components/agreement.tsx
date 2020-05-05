@@ -24,7 +24,6 @@ export const BillsAgreement = ({
   return (
     <FlatSection
       name="Bills agreement"
-      isAddVisible={true}
       onAddPress={goToBillCreation}
     >
       {bills.length ? (

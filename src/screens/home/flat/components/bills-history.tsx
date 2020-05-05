@@ -52,8 +52,10 @@ export const BillsHiStory = (props: {
                 {new Date(bill.date).toLocaleDateString()}
               </Text>
               <Text style={{ flex: 1 }}>{bill.bill}</Text>
-              <Text style={{ flex: 1 }}>{bill.value}</Text>
-              <Text style={{ flex: 1.2 }}>{bill.difference}</Text>
+              <Text style={{ flex: 1 }}>{bill.value ? bill.value : '-'}</Text>
+              <Text style={{ flex: 1.2 }}>
+                {bill.difference ? bill.difference : '-'}
+              </Text>
               <Text style={{ flex: 0.9 }}>{bill.rate}</Text>
               <Text style={{ flex: 0.8 }}>{bill.total.toFixed()}</Text>
             </TouchableOpacity>

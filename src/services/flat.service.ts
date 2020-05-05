@@ -1,7 +1,14 @@
 import { ApiService } from './api.service';
+import { BehaviorSubject } from 'rxjs';
 import * as types from '../typings';
 
 class FlatService extends ApiService {
+  public flats = new BehaviorSubject<types.IFlat[]>([]);
+
+  public addNewFlat = (flat: types.IFlat) => {
+    this.flats.next([...this.flats.value, flat]);
+  };
+
   public async getFlatDetails(flatId: number) {
     return await this.get<types.IFlatDetails>(`flat/${flatId}`);
   }

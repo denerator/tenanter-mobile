@@ -12,7 +12,7 @@ export const PaymentHiStory = ({
   onPay: () => void;
 }) => {
   return (
-    <FlatSection isAddVisible={true} onAddPress={onPay} name="Payments">
+    <FlatSection onAddPress={onPay} name="Payments">
       {paymentHistory.length ? (
         <>
           <View style={globalStyles.tableRow}>

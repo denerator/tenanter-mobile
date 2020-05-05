@@ -11,8 +11,10 @@ export const SingleBillHistory = ({ navigation, route }) => {
         {new Date(item.date).toLocaleDateString()}
       </Text>
       <Text style={{ flex: 1 }}>{item.bill}</Text>
-      <Text style={{ flex: 1 }}>{item.value}</Text>
-      <Text style={{ flex: 1.2 }}>{item.difference}</Text>
+      <Text style={{ flex: 1 }}>{item.value ? item.value : '-'}</Text>
+      <Text style={{ flex: 1.2 }}>
+        {item.difference ? item.difference : '-'}
+      </Text>
       <Text style={{ flex: 0.9 }}>{item.rate}</Text>
       <Text style={{ flex: 0.8 }}>{item.total.toFixed()}</Text>
     </View>

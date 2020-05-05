@@ -9,8 +9,7 @@ import {
 import { ITenant } from 'src/typings';
 import { FlatSection } from './section';
 import { useNavigation } from '@react-navigation/core';
-import { ROUTES } from '../../../../constants';
-import { number } from 'prop-types';
+import { ROUTES, globalStyles } from '../../../../constants';
 
 export const TenantInfo = ({
   tenant,
@@ -32,20 +31,23 @@ export const TenantInfo = ({
     Linking.openURL(`tel:${tenant.phone}`);
   };
   return (
-    <FlatSection name="Tenant" onAddPress={editTenant} isAddVisible={true}>
+    <FlatSection name="Tenant" onAddPress={editTenant}>
       {tenant ? (
-        <>
-          <Text style={styles.title}>{tenant.name}</Text>
-          <TouchableOpacity onPress={callTenant}>
-            <Text style={styles.title}>{tenant.phone}</Text>
-          </TouchableOpacity>
-          <Text>Rental rate: {tenant.rental_rate}</Text>
-          <Text>Payment day: {tenant.payment_day}</Text>
-          <Text>Deposit: {tenant.deposit}</Text>
-          <Text>Contract time: {tenant.contract_time}</Text>
-        </>
+        <View style={styles.row}>
+          <View style={styles.userPhoto}></View>
+          <View>
+            <Text style={styles.title}>{tenant.name}</Text>
+            <TouchableOpacity onPress={callTenant}>
+              <Text style={styles.title}>{tenant.phone}</Text>
+            </TouchableOpacity>
+            <Text>Contract time: {tenant.contract_time}</Text>
+            <Text>Payment day: {tenant.payment_day}</Text>
+            <Text>Deposit: {tenant.deposit}</Text>
+            <Text>Rental rate: {tenant.rental_rate}</Text>
+          </View>
+        </View>
       ) : (
-        <View style={styles.emptyContainer}>
+        <View style={globalStyles.centerBox}>
           <Text>No tenant yet</Text>
         </View>
       )}
@@ -59,8 +61,14 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     marginBottom: 20,
   },
-  emptyContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  userPhoto: {
+    width: 155,
+    height: 155,
+    borderRadius: 77.5,
+    backgroundColor: 'lightgrey',
   },
 });

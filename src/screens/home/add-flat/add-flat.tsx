@@ -10,6 +10,7 @@ import {
 import { flatService } from '../../../services/flat.service';
 import { Input, Button } from '../../../components';
 import { globalStyles } from '../../../constants';
+import { from } from 'rxjs';
 
 export const AddFlatScreen = ({ navigation }) => {
   const [address, setAddress] = React.useState('');
@@ -18,14 +19,17 @@ export const AddFlatScreen = ({ navigation }) => {
     setAddress(value);
   };
 
-  const onSubmit = async () => {
-    try {
-      const { data } = await flatService.createFlat(address, 1);
-      navigation.goBack();
-    } catch (error) {
-      console.log(error.response.data);
-      Alert.alert('Error');
-    }
+  const onSubmit = () => {
+    from(flatService.createFlat(address, 1)).subscribe(
+      ({ data }) => {
+        flatService.addNewFlat(data);
+        navigation.goBack();
+      },
+      (error) => {
+        console.log(error.response.data, 'FLAT_CREATION_ERROR');
+        Alert.alert('Error');
+      }
+    );
   };
 
   return (

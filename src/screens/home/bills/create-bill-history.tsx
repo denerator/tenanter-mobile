@@ -11,6 +11,7 @@ import { Dropdown } from 'react-native-material-dropdown';
 import { Input, Button } from '../../../components';
 import { flatService } from '../../../services/flat.service';
 import { globalStyles } from '../../../constants';
+import { flatStore } from '../flat/flat.store';
 
 export const BillHistoryCreation = ({ navigation, route }) => {
   const { flat, billsAgreement } = route.params;
@@ -32,6 +33,7 @@ export const BillHistoryCreation = ({ navigation, route }) => {
         bill,
         value: +value,
       });
+      flatStore.addBillHistory(data);
       navigation.goBack();
     } catch (error) {
       console.log(error.response.data);
@@ -84,7 +86,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-  
+
   submit: {
     marginTop: 30,
     width: '80%',
