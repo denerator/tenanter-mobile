@@ -8,7 +8,7 @@ import { BillHistoryCreation, BillCreation, SingleBillHistory } from './bills';
 import { EditTenant } from './tenant';
 import { AddFlatBtn } from './add-flat/add-flat-btn';
 import { AddFlatScreen } from './add-flat/add-flat';
-import { FlatsList } from './flats-list/flat-list';
+import { FlatsList } from './flats-list/flats-list';
 
 export type HomeStackParamsList = {
   [ROUTES.FlatsList]: undefined;

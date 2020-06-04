@@ -20,10 +20,19 @@ import { flatStore } from './flat.store';
 import { from } from 'rxjs';
 
 export const FlatDetailsScreen = ({ navigation, route }) => {
-  const [flat, setFlat] = React.useState<IFlatDetails | null>(null);
+  const { id, address, tenant, owner } = route.params;
+  const [flat, setFlat] = React.useState<IFlatDetails>({
+    id,
+    tenant,
+    owner,
+    address,
+    days_before_payment: 0,
+    bills_agreement: [],
+    bills_history: [],
+    payment_history: [],
+    to_pay: 0,
+  });
   const [isLoading, setLoading] = React.useState(false);
-
-  const { id, address } = route.params;
 
   const getFlat = () => {
     setLoading(true);
@@ -93,31 +102,33 @@ export const FlatDetailsScreen = ({ navigation, route }) => {
 
   return (
     <View style={styles.container}>
-      {!isLoading && flat ? (
-        <ScrollView style={{ flex: 1 }}>
-          <>
-            <Text style={styles.title}>{address}</Text>
+      <ScrollView style={{ flex: 1 }}>
+        <>
+          <Text style={styles.title}>{address}</Text>
 
-            <>
-              <TenantInfo flat={flat.id} tenant={flat.tenant} />
-              <BillsHiStory
-                flat={flat.id}
-                bills={flat.bills_history}
-                billsAgreement={flat.bills_agreement}
-              />
-              <PaymentHiStory
-                paymentHistory={flat.payment_history}
-                onPay={askForPay}
-              />
-              <BillsAgreement flat={flat.id} bills={flat.bills_agreement} />
-            </>
+          <>
+            <TenantInfo toPay={flat.to_pay} flat={flat.id} tenant={tenant} />
+            {!isLoading ? (
+              <>
+                <BillsHiStory
+                  flat={flat.id}
+                  bills={flat.bills_history}
+                  billsAgreement={flat.bills_agreement}
+                />
+                <PaymentHiStory
+                  paymentHistory={flat.payment_history}
+                  onPay={askForPay}
+                />
+                <BillsAgreement flat={flat.id} bills={flat.bills_agreement} />
+              </>
+            ) : (
+              <View style={[styles.emptyContainer, { flex: 1 }]}>
+                <ActivityIndicator size="large" color={COLORS.lightBlue} />
+              </View>
+            )}
           </>
-        </ScrollView>
-      ) : (
-        <View style={[styles.emptyContainer, { flex: 1 }]}>
-          <ActivityIndicator size="large" color={COLORS.lightBlue} />
-        </View>
-      )}
+        </>
+      </ScrollView>
     </View>
   );
 };

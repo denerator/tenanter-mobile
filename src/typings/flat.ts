@@ -4,6 +4,8 @@ export interface IFlat {
   id: number;
   address: string;
   owner: number;
+  days_before_payment: number;
+  tenant: ITenant | null;
 }
 
 export interface IFlatDetails extends IFlat {
@@ -11,6 +13,7 @@ export interface IFlatDetails extends IFlat {
   bills_agreement: IBillsAgreement[];
   bills_history: IBillHistory[];
   payment_history: IPayment[];
+  to_pay: number;
 }
 
 export interface ITenantDTO {

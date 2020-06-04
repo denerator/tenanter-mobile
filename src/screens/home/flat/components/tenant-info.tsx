@@ -14,9 +14,11 @@ import { ROUTES, globalStyles } from '../../../../constants';
 export const TenantInfo = ({
   tenant,
   flat,
+  toPay,
 }: {
   tenant: ITenant | null;
   flat: number;
+  toPay: number;
 }) => {
   const navigation = useNavigation();
 
@@ -42,8 +44,9 @@ export const TenantInfo = ({
             </TouchableOpacity>
             <Text>Contract time: {tenant.contract_time}</Text>
             <Text>Payment day: {tenant.payment_day}</Text>
-            <Text>Deposit: {tenant.deposit}</Text>
-            <Text>Rental rate: {tenant.rental_rate}</Text>
+            <Text>Deposit: {tenant.deposit}$</Text>
+            <Text>Rental rate: {tenant.rental_rate}$</Text>
+            <Text>To pay: {toPay}$</Text>
           </View>
         </View>
       ) : (

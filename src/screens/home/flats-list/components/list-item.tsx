@@ -8,16 +8,36 @@ export const FlatItem = ({ flat }: { flat: IFlat }) => {
   const navigation = useNavigation();
 
   const onItemPress = () => {
-    navigation.navigate(ROUTES.FlatDetails, {
-      id: flat.id,
-      address: flat.address,
-    });
+    navigation.navigate(ROUTES.FlatDetails, flat);
+  };
+
+  const getPaymentDay = () => {
+    switch (flat.days_before_payment) {
+      case 0:
+        return 'Today';
+      case 1:
+        return 'Tomorrow';
+      default:
+        return `In ${flat.days_before_payment} days`;
+    }
   };
 
   return (
     <TouchableOpacity style={styles.container} onPress={onItemPress}>
-      <View style={styles.flatPhoto}></View>
-      <Text style={styles.flatName}>{flat.address}</Text>
+      <View style={globalStyles.row}>
+        <View style={styles.flatPhoto}></View>
+        <View>
+          <Text style={styles.flatName}>{flat.address}</Text>
+          {flat.tenant ? (
+            <Text style={styles.description}>
+              Payment day: {getPaymentDay()}
+            </Text>
+          ) : null}
+        </View>
+      </View>
+      {flat.tenant ? (
+        <Text style={styles.price}>{flat.tenant.rental_rate}$</Text>
+      ) : null}
     </TouchableOpacity>
   );
 };
@@ -30,6 +50,7 @@ const styles = StyleSheet.create({
     borderColor: COLORS.descriptionsColors,
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-between',
   },
   flatPhoto: {
     width: 50,
@@ -42,5 +63,14 @@ const styles = StyleSheet.create({
     color: '#000',
     fontSize: 18,
     fontWeight: '500',
+    marginBottom: 4,
+  },
+  description: {
+    color: 'grey',
+    fontSize: 14,
+  },
+  price: {
+    fontSize: 18,
+    fontWeight: '600',
   },
 });

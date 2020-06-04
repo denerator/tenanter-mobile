@@ -19,4 +19,7 @@ export const globalStyles = StyleSheet.create({
     fontWeight: '600',
     marginBottom: 40,
   },
+  row: {
+    flexDirection: 'row',
+  },
 });
