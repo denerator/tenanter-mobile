@@ -107,7 +107,7 @@ export const FlatDetailsScreen = ({ navigation, route }) => {
           <Text style={styles.title}>{address}</Text>
 
           <>
-            <TenantInfo toPay={flat.to_pay} flat={flat.id} tenant={tenant} />
+            <TenantInfo toPay={flat.to_pay} flat={flat.id} tenant={flat.tenant} />
             {!isLoading ? (
               <>
                 <BillsHiStory

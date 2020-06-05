@@ -9,6 +9,12 @@ class FlatService extends ApiService {
     this.flats.next([...this.flats.value, flat]);
   };
 
+  public updateFlatTenantInList = (flat: number, tenant: types.ITenant) => {
+    this.flats.next(
+      this.flats.value.map((f) => (f.id === flat ? { ...f, tenant } : f))
+    );
+  };
+
   public async getFlatDetails(flatId: number) {
     return await this.get<types.IFlatDetails>(`flat/${flatId}`);
   }

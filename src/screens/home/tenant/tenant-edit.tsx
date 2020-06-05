@@ -48,7 +48,7 @@ export const EditTenant = ({ navigation, route }) => {
           ...state,
           payment_day: +state.payment_day,
           contract_time: +state.contract_time,
-          rental_rate: +state.contract_time,
+          rental_rate: +state.rental_rate,
           deposit: +state.deposit,
         });
         response = data;
@@ -57,12 +57,13 @@ export const EditTenant = ({ navigation, route }) => {
           ...state,
           payment_day: +state.payment_day,
           contract_time: +state.contract_time,
-          rental_rate: +state.contract_time,
+          rental_rate: +state.rental_rate,
           deposit: +state.deposit,
         });
         response = data;
       }
       flatStore.tenant = response;
+      flatService.updateFlatTenantInList(flat, response);
       navigation.goBack();
     } catch (error) {
       console.log(error.response.data);
