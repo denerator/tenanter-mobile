@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { ROUTES } from '../../constants';
+import { ROUTES, IMAGES } from '../../constants';
 import { IFlat, ITenant } from 'src/typings';
 import { FlatDetailsScreen } from './flat';
 import { BillHistoryCreation, BillCreation, SingleBillHistory } from './bills';
@@ -9,6 +9,8 @@ import { EditTenant } from './tenant';
 import { AddFlatBtn } from './add-flat/add-flat-btn';
 import { AddFlatScreen } from './add-flat/add-flat';
 import { FlatsList } from './flats-list/flats-list';
+import { Image, TouchableOpacity } from 'react-native';
+import { DeleteFlatBtn } from './flat/components/delete-btn';
 
 export type HomeStackParamsList = {
   [ROUTES.FlatsList]: undefined;
@@ -53,7 +55,13 @@ export const HomeNavigation = () => {
           })}
         />
         <Stack.Screen name={ROUTES.EditFlat} component={AddFlatScreen} />
-        <Stack.Screen name={ROUTES.FlatDetails} component={FlatDetailsScreen} />
+        <Stack.Screen
+          name={ROUTES.FlatDetails}
+          component={FlatDetailsScreen}
+          options={({ navigation, route }) => ({
+            headerRight: () => <DeleteFlatBtn navigation={navigation} flatId={route.params.id} />,
+          })}
+        />
         <Stack.Screen
           name={ROUTES.AddBillHistory}
           component={BillHistoryCreation}

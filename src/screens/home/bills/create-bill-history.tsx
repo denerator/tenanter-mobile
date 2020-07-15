@@ -15,10 +15,29 @@ import { flatStore } from '../flat/flat.store';
 
 export const BillHistoryCreation = ({ navigation, route }) => {
   const { flat, billsAgreement } = route.params;
-  const billsNames = billsAgreement.map((bill) => ({
-    label: bill.name,
-    value: bill.id,
-  }));
+
+  const { billsMap, billsNames } = billsAgreement.reduce(
+    (acc, agreement) => {
+      return {
+        billsMap: {
+          ...acc.billsMap,
+          [agreement.id]: agreement.is_dynamic,
+        },
+        billsNames: [
+          ...acc.billsNames,
+          {
+            label: agreement.name,
+            value: agreement.id,
+          },
+        ],
+      };
+    },
+    {
+      billsMap: {},
+      billsNames: [],
+    }
+  );
+
   const [bill, setBill] = React.useState(billsNames[0].value);
   const [value, setValue] = React.useState('');
 
@@ -55,17 +74,21 @@ export const BillHistoryCreation = ({ navigation, route }) => {
           />
         </View>
         <View style={styles.form}>
-          <Input
-            value={value}
-            secureTextEntry={false}
-            placeholder="Value"
-            option="phone"
-            onTextChange={onInputChange}
-          />
+          {billsMap[bill.toString()] ? (
+            <Input
+              value={value}
+              secureTextEntry={false}
+              placeholder="Value"
+              option="phone"
+              onTextChange={onInputChange}
+            />
+          ) : (
+            <View></View>
+          )}
           <Button
             text="Save"
             onPress={onSubmit}
-            disabled={!value.length}
+            disabled={billsMap[bill.toString()] && !value.length}
             containerStyles={styles.submit}
           />
         </View>

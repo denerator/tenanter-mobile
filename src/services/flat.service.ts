@@ -14,6 +14,13 @@ class FlatService extends ApiService {
       this.flats.value.map((f) => (f.id === flat ? { ...f, tenant } : f))
     );
   };
+  public filterFlatById = (flatId: number) => {
+    this.flats.next(this.flats.value.filter((f) => f.id !== flatId));
+  };
+
+  public removeFlatTenantInList = (flat: number) => {
+    this.flats.next(this.flats.value.filter((f) => f.id !== flat));
+  };
 
   public async getFlatDetails(flatId: number) {
     return await this.get<types.IFlatDetails>(`flat/${flatId}`);
@@ -46,6 +53,9 @@ class FlatService extends ApiService {
       address,
       owner: userId,
     });
+  }
+  public async deleteFlat(flatId: number) {
+    return await this.delete<types.IFlat>(`flat/${flatId}`);
   }
 }
 

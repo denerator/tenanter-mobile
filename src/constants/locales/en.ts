@@ -41,5 +41,8 @@ export const EnStrings = {
       screen: 'Create Bill',
       name: 'Bill name',
     },
+    delete: {
+      confirm: 'Are you sure you want to delete this flat?',
+    },
   },
 };

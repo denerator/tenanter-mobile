@@ -28,11 +28,9 @@ export const FlatItem = ({ flat }: { flat: IFlat }) => {
         <View style={styles.flatPhoto}></View>
         <View>
           <Text style={styles.flatName}>{flat.address}</Text>
-          {flat.tenant ? (
-            <Text style={styles.description}>
-              Payment day: {getPaymentDay()}
-            </Text>
-          ) : null}
+          <Text style={styles.description}>
+            {flat.tenant ? `Payment day: ${getPaymentDay()}` : 'No tenant'}
+          </Text>
         </View>
       </View>
       {flat.tenant ? (
